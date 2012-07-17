@@ -1,0 +1,59 @@
+<?php
+
+function openlayers_bounds_selector_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'openlayers' && $plugin == 'behaviors') {
+    return 'plugins/behaviors';
+  }
+}
+
+function openlayers_bounds_selector_field_widget_info() {
+  return array(
+    'openlayers_bounds_selector_bounds_selector' => array(
+      'label' => t('Bounds Selector'),
+      'field types' => array('text'),
+      'settings' => array(),
+    ),
+  );
+}
+
+function openlayers_bounds_selector_field_widget_form(
+  &$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $map_def = array(
+    'id' => 'openlayers-bounds-selector',
+    'projection' => '900913',
+    'displayProjection' => '900913',
+    'default_layer' => 'google_normal',
+    'width' => '500px',
+    'height' => '400px',
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => "0, 0",
+        'zoom' => 2,
+       ),
+    ),
+    'image_path' => drupal_get_path('module','openlayers') . '/themes/default_dark/img/',
+    'layers' => array(
+      'google_normal',
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_navigation' => array(),
+      'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_dragpan' => array(),
+      'openlayers_behavior_mapformvalues' => array(),
+      'openlayers_behavior_boundselect' => array(),
+      'openlayers_behavior_attribution' => array(),
+    ),
+  );
+  $base = $element;
+  $element = array();
+  $element['map'] = $base + array(
+    '#markup' => '<div class="form-item openlayers-bounds-selector" style="display:block">'.
+                 openlayers_render_map_data($map_def).'</div>',
+  );
+  $element['value'] = $base + array(
+    '#type' => 'textfield',
+    '#title' => t('Bounds'),
+    '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,
+  );
+  return $element;
+}

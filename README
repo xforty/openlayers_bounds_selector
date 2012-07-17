@@ -1,0 +1,13 @@
+OpenLayers Bounds Selector
+==========================
+
+https://github.com/xforty/openlayers_bounds_selector
+
+Drupal plugin for selecting and storing a bounding box in a field.
+
+Provides a new 'Bounds Selector' widget for the text field type.  This widget
+displays a map that you can navigate around and interactively create a
+selection box. The text field will be filled in the selected bounding box as a
+quad of lat/long coordinates (left, bottom, right, top).
+
+TODO: Support the geofield modules bounding box type

@@ -1,0 +1,7 @@
+name = "OpenLayers Bounds Selector"
+description = "OpenLayers plugin for selecting a bounding box"
+core = "7.x"
+package = "OpenLayers"
+dependencies[] = openlayers
+dependencies[] = field
+dependencies[] = ctools
